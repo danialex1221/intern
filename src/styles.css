@@ -1,0 +1,285 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-display: "Inter", system-ui, sans-serif;
+  --shadow-soft: 0 4px 14px -4px rgb(34 73 134 / 0.12);
+  --shadow-elegant: 0 14px 40px -12px rgb(34 73 134 / 0.25);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #224986;
+  --foreground: #f1edd3;
+  --card: #fbfbe2;
+  --card-foreground: #224986;
+  --popover: #fbfbe2;
+  --popover-foreground: #224986;
+  --primary: #224986;
+  --primary-foreground: #fbfbe2;
+  --primary-soft: #dce7f7;
+  --secondary: #fbfbe2;
+  --secondary-foreground: #224986;
+  --muted: #edf1d7;
+  --muted-foreground: #4a5872;
+  --accent: #d4b94a;
+  --accent-foreground: #224986;
+  --destructive: #b3261e;
+  --destructive-foreground: #ffffff;
+  --success: #1e7e44;
+  --success-foreground: #ffffff;
+  --warning: #b8860b;
+  --warning-foreground: #ffffff;
+  --border: #d9dfb8;
+  --input: #d9dfb8;
+  --ring: #224986;
+}
+
+.dark {
+  --background: #0b1220;
+  --foreground: #f1edd3;
+  --card: #121c2f;
+  --card-foreground: #f1edd3;
+  --popover: #121c2f;
+  --popover-foreground: #f1edd3;
+  --primary: #4d7ec9;
+  --primary-foreground: #0b1220;
+  --primary-soft: #1a2740;
+  --secondary: #f1edd3;
+  --secondary-foreground: #0b1220;
+  --muted: #1a2740;
+  --muted-foreground: #97a3b7;
+  --accent: #d4b94a;
+  --accent-foreground: #0b1220;
+  --destructive: #ef5350;
+  --destructive-foreground: #ffffff;
+  --success: #4caf7c;
+  --success-foreground: #0b1220;
+  --warning: #e0b341;
+  --warning-foreground: #0b1220;
+  --border: #22314b;
+  --input: #22314b;
+  --ring: #4d7ec9;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--color-foreground);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    background: 
+      radial-gradient(circle at 12% 0%, color-mix(in oklab, var(--color-accent) 12%, transparent), transparent 30%),
+      radial-gradient(circle at 88% 10%, color-mix(in oklab, var(--color-secondary) 10%, transparent), transparent 30%);
+    pointer-events: none;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 24%, transparent);
+    color: var(--color-foreground);
+  }
+  h1, h2, h3, h4 { letter-spacing: -0.01em; }
+  a, button, input, select, textarea {
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+    transition-duration: 160ms;
+    transition-timing-function: ease;
+  }
+}
+
+@utility ess-container {
+  width: 100%;
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2.5rem);
+}
+
+@utility card-surface {
+  background: color-mix(in oklab, var(--color-card) 98%, white);
+  color: var(--color-card-foreground);
+  border: 1px solid color-mix(in oklab, var(--color-border) 92%, white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft), 0 1px 0 rgb(255 255 255 / 0.42) inset;
+}
+
+/* FIXED: Hover states are now nested cleanly using &:hover */
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all .2s ease;
+  box-shadow: var(--shadow-soft);
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-elegant);
+    opacity: .95;
+  }
+}
+
+/* FIXED: Hover state nested */
+@utility btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  padding: 0.6rem 1.2rem;
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all .2s ease;
+  
+  &:hover {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+}
+
+/* FIXED: Focus state nested */
+@utility input-field {
+  width: 100%;
+  background-color: color-mix(in oklab, var(--color-secondary) 98%, white);
+  color: var(--color-secondary-foreground);
+  border: 1.5px solid color-mix(in oklab, var(--color-border) 92%, white);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.85rem;
+  transition: border-color .15s, box-shadow .15s;
+  
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-primary) 18%, transparent);
+  }
+}
+
+@utility section-pad { padding-block: clamp(3.25rem, 5vw, 5.25rem); }
+
+@utility hero-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) + 0.35rem);
+  background: linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 92%, black), color-mix(in oklab, var(--color-primary) 78%, var(--color-accent)));
+  color: var(--color-primary-foreground);
+  border: 1px solid color-mix(in oklab, var(--color-primary-foreground) 14%, transparent);
+  box-shadow: var(--shadow-elegant);
+}
+
+@utility section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-primary-foreground) 22%, transparent);
+  background: color-mix(in oklab, var(--color-primary-foreground) 8%, transparent);
+  color: color-mix(in oklab, var(--color-primary-foreground) 88%, transparent);
+  padding: .35rem .75rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+@utility section-title {
+  font-size: clamp(1.6rem, 2vw, 2.25rem);
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+@utility section-copy {
+  max-width: 42rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: color-mix(in oklab, var(--color-muted-foreground) 92%, var(--color-foreground));
+}
+
+@utility metric-card {
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklab, var(--color-primary-foreground) 12%, transparent);
+  background: color-mix(in oklab, var(--color-primary-foreground) 8%, transparent);
+  padding: 1.1rem;
+  backdrop-filter: blur(10px);
+}
+
+@utility feature-card {
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklab, var(--color-border) 90%, white);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--color-secondary) 98%, white), var(--color-secondary));
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem;
+}
+
+@utility hero-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+
+@utility muted-panel {
+  border-radius: var(--radius-xl);
+  background: color-mix(in oklab, var(--color-primary-soft) 72%, transparent);
+  border: 1px solid var(--color-border);
+}
+
+@utility badge-pending {
+  display: inline-flex; align-items: center; gap: .35rem;
+  background: color-mix(in oklab, var(--color-warning) 18%, transparent);
+  color: var(--color-warning);
+  padding: .2rem .6rem; border-radius: 999px; font-size: .75rem; font-weight: 600;
+}
+@utility badge-approved {
+  display: inline-flex; align-items: center; gap: .35rem;
+  background: color-mix(in oklab, var(--color-success) 18%, transparent);
+  color: var(--color-success);
+  padding: .2rem .6rem; border-radius: 999px; font-size: .75rem; font-weight: 600;
+}
+@utility badge-rejected {
+  display: inline-flex; align-items: center; gap: .35rem;
+  background: color-mix(in oklab, var(--color-destructive) 18%, transparent);
+  color: var(--color-destructive);
+  padding: .2rem .6rem; border-radius: 999px; font-size: .75rem; font-weight: 600;
+}
