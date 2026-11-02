@@ -39,7 +39,7 @@ function Status() {
 
         <form onSubmit={search} className="feature-card mt-8 flex flex-col gap-3 p-5 sm:flex-row">
           <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="email@example.com or ESS-XXXXXX" className="input-field" />
-          <button className="btn-primary whitespace-nowrap">🔎 Search</button>
+          <button className="btn-primary whitespace-nowrap"> Search</button>
         </form>
 
         {results !== null && (

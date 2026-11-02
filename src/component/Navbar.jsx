@@ -25,7 +25,7 @@ export default function Navbar() {
                     <div className="truncate text-sm font-bold text-white sm:text-base">
                         Ethiopian Statistics Service
                     </div>
-                    <div className="truncate text-[11px] text-white/70">Official Internship Portal</div>
+                    <div className="truncate text-[11px] text-white/70">Internship Portal</div>
                 </div>
             </Link>
 
